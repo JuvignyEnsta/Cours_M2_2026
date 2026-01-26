@@ -15,3 +15,8 @@ if rank==0: glob_array = np.empty(N,dtype=np.int64)
 globCom.Gather(loc_array, glob_array)
 
 if rank==0: print(f"global array: {glob_array}")
+
+loc_array = np.array([2*NLoc*rank-i for i in range(NLoc)],dtype=np.int64)
+glob_array = np.empty(N,dtype=np.int64)
+globCom.Allgather(loc_array, glob_array)
+print(f"rank {rank} : global array after Allgather: {glob_array}")
