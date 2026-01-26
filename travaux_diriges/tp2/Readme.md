@@ -31,7 +31,7 @@ Pour l'affichage de cette suite, on calcule une image de $W\times H$ pixels tell
 
 ## 2. Produit matrice-vecteur
 
-On considère le produit d'une matrice carrée $A$ de dimension $N$ par un vecteur $u$ de même dimension dans $\mathbb{R}$. La matrice est constituée des cœfficients définis par $A_{ij} = (i+j) \mod N$. 
+On considère le produit d'une matrice carrée $A$ de dimension $N$ par un vecteur $u$ de même dimension dans $\mathbb{R}$. La matrice est constituée des cœfficients définis par $A_{ij} = (i+j) \mod N + 1$. 
 
 Par soucis de simplification, on supposera $N$ divisible par le nombre de tâches `nbp` exécutées.
 
