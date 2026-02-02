@@ -12,9 +12,6 @@ class MandelbrotSet:
     max_iterations: int
     escape_radius:  float = 2.0
 
-    def __contains__(self, c: complex) -> bool:
-        return self.stability(c) == 1
-
     def convergence(self, c: complex, smooth=False, clamp=True) -> float:
         value = self.count_iterations(c, smooth)/self.max_iterations
         return max(0.0, min(value, 1.0)) if clamp else value
@@ -48,24 +45,24 @@ class MandelbrotSet:
 
 
 # On peut changer les paramètres des deux prochaines lignes
-mandelbrot_set = MandelbrotSet(max_iterations=50, escape_radius=10)
+mandelbrot_set = MandelbrotSet(max_iterations=200, escape_radius=2.)
 width, height = 1024, 1024
 
 scaleX = 3./width
 scaleY = 2.25/height
-convergence = np.empty((width, height), dtype=np.double)
+convergence = np.empty((height, width), dtype=np.double)
 # Calcul de l'ensemble de mandelbrot :
 deb = time()
 for y in range(height):
     for x in range(width):
         c = complex(-2. + scaleX*x, -1.125 + scaleY * y)
-        convergence[x, y] = mandelbrot_set.convergence(c, smooth=True)
+        convergence[y,x] = mandelbrot_set.convergence(c, smooth=True)
 fin = time()
 print(f"Temps du calcul de l'ensemble de Mandelbrot : {fin-deb}")
 
 # Constitution de l'image résultante :
 deb = time()
-image = Image.fromarray(np.uint8(matplotlib.cm.plasma(convergence.T)*255))
+image = Image.fromarray(np.uint8(matplotlib.cm.plasma(convergence)*255))
 fin = time()
 print(f"Temps de constitution de l'image : {fin-deb}")
 image.show()
